@@ -1,2 +1,5 @@
-const a = 3;
-export { a };
+import Spinner from '~/components/atoms/Spinner.vue'
+
+export {
+  Spinner
+}
