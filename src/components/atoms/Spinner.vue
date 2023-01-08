@@ -38,13 +38,13 @@ withDefaults(defineProps<{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-.spinner.circle {
-  z-index: 5000;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  z-index: 5000;
+}
+.spinner.circle {
   font-size: 0;
   color: #ddd;
 
@@ -61,8 +61,8 @@ withDefaults(defineProps<{
       float: none;
       background-color: currentColor;
       border: 0 solid currentColor;
-      margin-top: -4px;
-      margin-left: -4px;
+      margin-top: calc(v-bind(size) * -0.08);
+      margin-left: calc(v-bind(size) * -0.08);;
       border-radius: 100px;
       animation: ball-spin-clockwise 1s infinite ease-in-out;
     }
@@ -131,9 +131,6 @@ withDefaults(defineProps<{
 }
 
 .spinner.arc {
-  display: grid;
-  place-content: center;
-  
   &::before {
     --border-size: 0.1875rem;
     --border-shift: calc(-0.25 * var(--border-size)); 
