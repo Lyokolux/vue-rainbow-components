@@ -1,6 +1,6 @@
 {
   "name": "vue-rainbow-components",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "module": "./dist/vue-rainbow-components.js",
   "types": "./dist/types/index.d.ts",
   "files": [
