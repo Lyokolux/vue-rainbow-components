@@ -49,7 +49,7 @@ const onInput = (e: Event) => {
   }
 }
 
-const onDelete = () => emit('update:modelValue', props.modelValue.substring(0, -1))
+const onDelete = () => emit('update:modelValue', props.modelValue.slice(0, -1))
 
 const onPaste = (e: ClipboardEvent) => {
   const data = e.clipboardData?.getData('Text')
