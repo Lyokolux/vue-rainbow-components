@@ -3,7 +3,7 @@ html {
   --c-error: #fe4849;
   --c-warning: #fc0;
   --c-success: #1de9b6;
-  --c-mainBackground: #fff;
+  --c-main-background: #fff;
 
   /* TODO: generate these colors dynamically */
   --c-highlight: rgb(221, 221, 221);
