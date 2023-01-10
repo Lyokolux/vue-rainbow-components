@@ -1,12 +1,11 @@
 <template>
-  <fieldset :id="localId">
-    <legend>{{ label }}</legend>
-    <input v-for="(_, i) in length" :key="i" :value="localValue[i]" maxlength="1" pattern="\d*" :disabled="disabled" :readonly="readonly" @input="onInput" @keydown.delete="onDelete" @focus="onFocus" @paste="onPaste" />
+  <fieldset :id="localId" :class="{ 'error': error }">
+    <legend><span v-if="required" class="required">*</span><span>{{ label }}</span></legend>
+    <input v-for="(_, i) in length" :key="i" :value="localValue[i]" maxlength="1" :disabled="disabled" :readonly="readonly" @input="onInput" @keydown.delete="onDelete" @focus="onFocus" @paste="onPaste" />
   </fieldset>
 </template>
 
 <script setup lang="ts">
-import { join } from 'path';
 import { computed, watch } from 'vue';
 import { useId } from '~/composables/useId'
 
@@ -16,6 +15,8 @@ type CodeInputProps = {
   length?: number 
   disabled?: boolean
   readonly?: boolean
+  error?: boolean
+  required?: boolean
 }
 
 // TODO: error state
@@ -41,12 +42,15 @@ const focusAtIndex = (i: number) => {
 }
 const onFocus = () => focusAtIndex(Math.min(localValue.value.length, props.length - 1))
 
-
 const onInput = (e: Event) => {
   const c = (e as InputEvent).data
-  emit('update:modelValue', [...localValue.value, c].join(''))
+  if(props.modelValue.length < props.length) {
+    emit('update:modelValue', `${props.modelValue}${c}`)
+  }
 }
-const onDelete = () => emit('update:modelValue', localValue.value.slice(0, -1).join(''))
+
+const onDelete = () => emit('update:modelValue', props.modelValue.substring(0, -1))
+
 const onPaste = (e: ClipboardEvent) => {
   const data = e.clipboardData?.getData('Text')
   if(!data) return 
@@ -73,7 +77,12 @@ legend {
   text-align: center;
   margin-left: 0px;
   margin-right: 0px;
-  padding: 0px 8px;
+  padding: 0px 16px;
+
+  .required {
+    color: var(--c-error);
+    margin-right: 0.2rem;
+  }
 }
 
 input {
@@ -95,7 +104,7 @@ input {
   &:focus {
     outline: 0px;
     padding: 0px 0.9375rem;
-    border: 2px solid var(--c-brand);
+    border-color: var(--c-brand);
     background-color: var(--c-main-background);
     box-shadow: var(--c-brand) 0px 0px 2px;
   }
@@ -109,10 +118,15 @@ input {
   }
 
   &[readonly] {
-    border: 2px solid transparent;
+    border-color: transparent;
     background-color: transparent;
     box-shadow: none;
     margin: 0px 0px 12px;
+  }
+
+  .error & {
+    border-width: 2px;
+    border-color: var(--c-error);
   }
 }
 </style>

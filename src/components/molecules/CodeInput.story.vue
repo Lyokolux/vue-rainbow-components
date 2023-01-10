@@ -18,6 +18,12 @@ watchEffect(() => console.log(value.value))
     <Variant title="Readonly">
       <CodeInput v-model="readonlyValue" label="Enter your Code" readonly />
     </Variant>
+    <Variant title="Error">
+      <CodeInput v-model="value" label="Enter your Code" error />
+    </Variant>
+    <Variant title="Required">
+      <CodeInput v-model="value" label="Enter your Code" required />
+    </Variant>
   </Story>
 </template>
 
