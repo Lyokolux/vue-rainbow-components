@@ -1,4 +1,5 @@
 html {
+  --color: #3e3e3c;
   --c-brand: #01b6f5;
   --c-error: #fe4849;
   --c-warning: #fc0;
@@ -7,4 +8,5 @@ html {
 
   /* TODO: generate these colors dynamically */
   --c-highlight: rgb(221, 221, 221);
+  --c-disabled: rgb(215, 217, 226);
 }
